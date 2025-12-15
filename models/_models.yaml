@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: "*"
+    description: ""
+    tests:
+      - dbt_utils.unique_combination_of_columns: # Optional: catches duplicate keys
+          combination_of_columns: []
+    columns:
+      - name: "*"
+        description: ""
+        tests:
+          - not_null # Optional: every column should have a value or explicit null handling

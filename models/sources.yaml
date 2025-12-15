@@ -1,0 +1,111 @@
+version: 2
+
+sources:
+  - name: shopify
+    description: Raw Shopify data from Fivetran
+    database: raw  # or your raw database name
+    schema: shopify
+    tables:
+      - name: customers
+        description: Raw Shopify customers table
+      - name: orders
+        description: Raw Shopify orders
+      - name: order_items
+        description: Raw order line items
+      - name: products
+        description: Raw products
+
+  - name: stripe
+    description: Raw Stripe data from Fivetran
+    schema: stripe
+    tables:
+      - name: charges
+      - name: payments
+      - name: refunds
+
+  - name: google_ads
+    description: Google Ads performance data
+    schema: google_ads
+    tables:
+      - name: campaigns
+      - name: ad_performance
+
+  - name: facebook_ads
+    description: Meta/Facebook Ads performance (includes Instagram Ads)
+    schema: facebook_ads
+    tables:
+      - name: campaigns
+      - name: ads
+      - name: ad_sets
+
+  - name: tiktok_ads
+    description: TikTok Ads performance
+    schema: tiktok_ads
+    tables:
+      - name: campaigns
+      - name: ads
+
+  - name: snapchat_ads
+    description: Snapchat Ads performance
+    schema: snapchat_ads
+    tables:
+      - name: campaigns
+      - name: performance
+
+  - name: pinterest_ads
+    description: Pinterest Ads performance
+    schema: pinterest_ads
+    tables:
+      - name: campaigns
+      - name: pins
+
+  - name: twitter_ads
+    description: X/Twitter Ads performance
+    schema: twitter_ads
+    tables:
+      - name: campaigns
+      - name: tweets
+
+  - name: linkedin_ads
+    description: LinkedIn Ads performance
+    schema: linkedin_ads
+    tables:
+      - name: campaigns
+      - name: ads
+
+  - name: microsoft_ads
+    description: Microsoft/Bing Ads performance
+    schema: microsoft_ads
+    tables:
+      - name: campaigns
+      - name: performance
+
+  - name: reddit_ads
+    description: Reddit Ads performance
+    schema: reddit_ads
+    tables:
+      - name: campaigns
+      - name: ads
+
+  - name: amazon_ads
+    description: Amazon Sponsored Products/DSP
+    schema: amazon_ads
+    tables:
+      - name: campaigns
+      - name: performance
+
+  - name: google_analytics
+    description: GA4 events and sessions
+    schema: google_analytics
+    tables:
+      - name: events
+      - name: sessions
+
+  - name: proddb
+    description: Custom production database (your client's main transactional DB)
+    schema: proddb
+    tables:
+      - name: customers
+      - name: orders
+      - name: order_items
+      - name: products

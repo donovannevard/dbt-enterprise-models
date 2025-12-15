@@ -1,0 +1,80 @@
+name: 'dbt_enterprise_models'
+version: '1.0.0'
+config-version: 2
+
+# Profile to use (matches your profiles.yml.example)
+profile: 'dbt_enterprise_models'
+
+# File paths
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Global defaults
+models:
+  dbt_enterprise_models:
+    +materialized: table
+    +enabled: true
+
+    # Staging layer — all staging models go to 'staging' schema
+    staging:
+      +schema: staging
+      +materialized: view  # Staging as views = fast iteration, no storage cost
+
+      # Sub-folders get their own subschemas for clarity
+      commercial:
+        +schema: staging_commercial
+
+      marketing:
+        +schema: staging_marketing
+
+      proddb:
+        +schema: staging_proddb
+
+    # Intermediate models — business logic
+    intermediate:
+      +schema: analytics
+      +materialized: table
+
+    # Analytics layer — final BI-ready models
+    analytics:
+      +schema: analytics
+      +materialized: table
+
+      # Large fact tables — incremental for performance
+      fct_*:
+        +materialized: incremental
+        +incremental_strategy: merge
+        +unique_key: id  # Adjust per model (e.g., order_id, session_id)
+
+      # Aggregates — always full refresh (usually small)
+      agg_*:
+        +materialized: table
+
+# Seeds — reference data
+seeds:
+  dbt_enterprise_models:
+    +schema: seeds
+
+# Snapshots — SCD Type 2
+snapshots:
+  dbt_enterprise_models:
+    +target_schema: snapshots
+
+# Tests — fail loud and clear
+tests:
+  dbt_enterprise_models:
+    +severity: error
+    +store_failures: true
+
+# Packages will be installed via packages.yml
+require-dbt-version: [">=1.6.0", "<2.0.0"]

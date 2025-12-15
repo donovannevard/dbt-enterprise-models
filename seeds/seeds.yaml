@@ -1,0 +1,56 @@
+version: 2
+
+seeds:
+  dbt_enterprise_models:
+
+    bank_holidays:
+      +column_types:
+        country_code: varchar(2)
+        market: varchar
+        holiday_date: date
+        holiday_name: varchar
+
+    country_codes:
+      +column_types:
+        country_name: varchar
+        alpha_2: varchar(2)
+        alpha_3: varchar(3)
+        numeric: varchar(3)
+        region: varchar
+        sub_region: varchar
+        intermediate_region: varchar
+        currency_code: varchar(3)
+        timezone_name: varchar
+
+    currency_info:
+      +column_types:
+        currency_code: varchar(3)
+        currency_name: varchar
+        currency_symbol: varchar
+        decimal_places: int
+
+    marketing_channel_taxonomy:
+      +column_types:
+        source: varchar
+        medium: varchar
+        campaign_name_pattern: varchar
+        channel_grouping: varchar
+        priority: int
+
+    timezones:
+      +column_types:
+        timezone_name: varchar
+        utc_offset: varchar
+        supports_dst: boolean
+        example_city: varchar
+
+    uk_outward_postcodes:
+      +column_types:
+        postcode: varchar # outward code
+        latitude: float
+        longitude: float
+        town: varchar
+        region: varchar
+        uk_region: varchar
+        country: varchar
+        country_string: varchar

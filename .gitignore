@@ -1,0 +1,36 @@
+# dbt
+target/
+dbt_packages/
+logs/
+
+# Compiled files
+*.pyc
+__pycache__/
+
+# Local dbt profiles (contains credentials!)
+profiles.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+
+# Terraform (if you ever add it to this repo)
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# General junk
+*.log
+*.tmp
