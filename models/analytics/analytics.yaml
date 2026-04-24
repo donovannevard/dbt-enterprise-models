@@ -1,0 +1,89 @@
+models:
+  - name: agg_customer_demographics
+    description: "Final customer data with full demographic information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: agg_customer_lifetime_value
+    description: "Final customer data with full lifetime value information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: agg_inventory
+    description: "Final product inventory information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: agg_marketing
+    description: "Final marketing information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: agg_transactions
+    description: "Final transactional information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_customers
+    description: "Customer-level information, 1 row per customer ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_date
+    description: "A clean calendar for calculations"
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_order_items
+    description: "Order item-level information, 1 row per order item ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_order
+    description: "Order-level information, 1 row per order ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_products
+    description: "Product-level information, 1 row per product ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_marketing
+    description: "Marketing metrics, such as spend, clicks, impressions, etc"
+
+  - name: fct_sessions
+    description: "Session metrics, such as page views, visits, visit duration, etc"
+
+  - name: fct_transactions
+    description: "Transaction metrics, such as revenue, units, refunds, etc"

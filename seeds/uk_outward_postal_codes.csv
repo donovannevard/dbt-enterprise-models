@@ -1,4 +1,4 @@
-postcode,eastings,northings,latitude,longitude,town,region,uk_region,country,country_string
+outward_code,eastings,northings,latitude,longitude,town,region,uk_region,country,country_string
 AB10,392900,804900,57.13514,-2.11731,Aberdeen,Aberdeen City,Scotland,SCT,Scotland
 AB11,394500,805300,57.13875,-2.09089,Aberdeen,Aberdeen City,Scotland,SCT,Scotland
 AB12,393300,801100,57.101,-2.1106,Aberdeen,Aberdeen City,Scotland,SCT,Scotland

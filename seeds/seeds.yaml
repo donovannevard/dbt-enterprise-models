@@ -2,13 +2,20 @@ version: 2
 
 seeds:
   dbt_enterprise_models:
-
     bank_holidays:
       +column_types:
         country_code: varchar(2)
         market: varchar
         holiday_date: date
         holiday_name: varchar
+
+    calendar:
+      +column_types:
+        day: date
+        week: date
+        month: date
+        quarter: date
+        year: int
 
     country_codes:
       +column_types:
@@ -46,7 +53,7 @@ seeds:
 
     uk_outward_postcodes:
       +column_types:
-        postcode: varchar # outward code
+        outward_code: varchar
         latitude: float
         longitude: float
         town: varchar

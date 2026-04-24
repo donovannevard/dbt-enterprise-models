@@ -10,7 +10,7 @@ This template is designed to get clients up and running in **hours**, not weeks,
   Pre-built staging models for Facebook/Meta Ads, Google Ads, TikTok Ads, Snapchat Ads, Pinterest Ads, X/Twitter Ads, LinkedIn Ads, Microsoft Ads, Reddit Ads, Amazon Ads, and more.
 
 - **Commercial & operational sources**  
-  Ready for Shopify, Stripe, Amazon Seller, eBay, QuickBooks, HubSpot, Salesforce, Klaviyo, Google Analytics 4, and custom databases (`proddb/`).
+  Ready for Shopify, Stripe, Amazon Seller, eBay, QuickBooks, HubSpot, Salesforce, Klaviyo, Google Analytics 4, and custom databases (`prod/`).
 
 - **Rich reference data (seeds)**  
   - `country_codes` (all countries with ISO codes, currency, primary timezone)  
@@ -31,7 +31,7 @@ This template is designed to get clients up and running in **hours**, not weeks,
 - **Best practices built in**  
   - Views for staging (fast iteration)  
   - Tables/incremental for facts (performance)  
-  - Schema routing by folder (`staging_commercial`, `staging_marketing`, `staging_proddb`, `analytics`)  
+  - Schema routing by folder (`staging_commercial`, `staging_marketing`, `staging_prod`, `analytics`)  
   - Leverages `dbt_utils` and `fivetran_utils`
 
 ## Project Structure
@@ -41,7 +41,7 @@ models/
 ├── staging/
 │   ├── commercial/      # Shopify, Stripe, Amazon, eBay, etc.
 │   ├── marketing/       # All paid advertising platforms
-│   └── proddb/          # Custom database/website
+│   └── prod/            # Custom database/website
 ├── intermediate/        # Business logic and joins
 └── analytics/           # Final BI-ready models (dim_, fct_, agg_*)
 seeds/                   # Reference data

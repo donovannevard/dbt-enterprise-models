@@ -2,7 +2,7 @@ name: 'dbt_enterprise_models'
 version: '1.0.0'
 config-version: 2
 
-# Profile to use (matches your profiles.yml.example)
+# Profile to use
 profile: 'dbt_enterprise_models'
 
 # File paths
@@ -27,36 +27,31 @@ models:
 
     # Staging layer — all staging models go to 'staging' schema
     staging:
-      +schema: staging
-      +materialized: view  # Staging as views = fast iteration, no storage cost
-
-      # Sub-folders get their own subschemas for clarity
-      commercial:
-        +schema: staging_commercial
-
-      marketing:
-        +schema: staging_marketing
-
-      proddb:
-        +schema: staging_proddb
+      +materialized: view # Staging as views = fast iteration, no storage cost
 
     # Intermediate models — business logic
     intermediate:
-      +schema: analytics
       +materialized: table
 
     # Analytics layer — final BI-ready models
     analytics:
-      +schema: analytics
       +materialized: table
 
-      # Large fact tables — incremental for performance
-      fct_*:
-        +materialized: incremental
-        +incremental_strategy: merge
-        +unique_key: id  # Adjust per model (e.g., order_id, session_id)
+      # # Large fact tables — incremental for performance
+      # fct_*:
+      #   +materialized: incremental
+      #   +incremental_strategy: merge
+      #   +unique_key: id  # Adjust per model (e.g., order_id, session_id)
 
-      # Aggregates — always full refresh (usually small)
+      # Facts - always full refresh
+      fct_*:
+        +materialized: table
+
+      # Dimensions - always full refresh
+      dim_*:
+        +materialized: table
+
+      # Aggregates — always full refresh
       agg_*:
         +materialized: table
 

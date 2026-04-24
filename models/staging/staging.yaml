@@ -1,0 +1,115 @@
+models:
+  - name: stg_stripe__charges
+    description: "Cleaned and renamed stripe charges data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_stripe__charges
+    description: "Cleaned and renamed stripe charges data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_stripe__payments
+    description: "Cleaned and renamed stripe payments data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_stripe__refunds
+    description: "Cleaned and renamed stripe refunds data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_facebook_ads__ads
+    description: "Cleaned and renamed facebook ad data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_facebook_ads__ad_group
+    description: "Cleaned and renamed facebook ad set data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_facebook_ads__campaign
+    description: "Cleaned and renamed facebook campaign data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_google_ads__clicks
+    description: "Cleaned and renamed google click data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_google_ads__ads
+    description: "Cleaned and renamed google ad data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_google_ads__ad_group
+    description: "Cleaned and renamed google ad group data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_google_ads__campaign
+    description: "Cleaned and renamed google campaign data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_customers
+    description: "Cleaned and renamed customer data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+  - name: stg_order_items
+    description: "Cleaned and renamed order items data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        tests:
+          - not_null
+  - name: stg_orders
+    description: "Cleaned and renamed orders data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+        tests:
+          - not_null
+  - name: stg_products
+    description: "Cleaned and renamed product data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique

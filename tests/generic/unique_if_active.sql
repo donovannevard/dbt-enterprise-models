@@ -1,10 +1,10 @@
--- tests/generic/unique_if_active.sql
 {% test unique_if_active(model, column_name, status_column, status_value) %}
 
-select *
-from {{ model }}
-where {{ status_column }} = '{{ status_value }}'
-group by {{ column_name }}
-having count(*) > 1
+SELECT
+    *
+FROM {{ model }}
+WHERE {{ status_column }} = '{{ status_value }}'
+GROUP BY {{ column_name }}
+HAVING COUNT(*) > 1
 
 {% endtest %}

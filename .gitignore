@@ -9,6 +9,7 @@ __pycache__/
 
 # Local dbt profiles (contains credentials!)
 profiles.yml
+profiles.yaml
 
 # OS files
 .DS_Store

@@ -1,33 +1,15 @@
-source,medium,campaign_name_pattern,channel_grouping
-google,cpc,brand,Brand
-google,cpc,,Non-Brand
-google,organic,,Organic Search
-facebook,cpc,,Social
-facebook,organic,,Social
-instagram,cpc,,Social
-instagram,organic,,Social
-tiktok,cpc,,Social
-snapchat,cpc,,Social
-twitter,cpc,,Social
-pinterest,cpc,,Social
-linkedin,cpc,,Social
-bing,cpc,,Non-Brand
-yahoo,cpc,,Non-Brand
-display,,,"Display"
-(gdn|display|banner),,,"Display"
-affiliate|partner,referral,,Affiliates
-affiliate|cj|impact,,Affiliates
-email,,,"Email"
-newsletter,,,"Email"
-app,,,"App"
-direct,none,,Direct
-direct,(not set),,Direct
-referral,,,Referral
-shopping|cse|pla,,Shopping
-price_comparison,,Shopping
-leadgen|lead_generation,,Lead Generation
-brand,,Brand
-(non)?brand,,Non-Brand
-organic,,,Organic Social
-organic,,,Organic Search
-social,,,Social
+campaign_name_pattern,channel,subchannel
+google-brand,Brand,Brand > Google
+google-non-brand,Non Brand,Non Brand > Google
+google.*(shopping|cse|pla),Shopping,Shopping > Google
+bing-non-brand,Non Brand,Non Brand > Bing
+google-organic,Organic,Organic > Search
+facebook-(cpc|organic),Social,Social > Facebook
+instagram-(cpc|organic),Social,Social > Instagram
+(gdn|display|banner),Display,Display > Other
+affiliate.*partner,Affiliates,Affiliates > Partners
+(affiliate|cj).*impact,Affiliates,Affiliates > Impacts
+email,Organic,Organic > Email
+newsletter,Organic,Organic > Newsletter
+referral,Organic,Organic > Referral
+leadgen|lead_generation,Lead Generation,Lead Generation > Other

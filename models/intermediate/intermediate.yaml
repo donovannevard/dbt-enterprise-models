@@ -1,0 +1,46 @@
+models:
+  - name: int_customer__enriched
+    description: "Enriched customer data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_marketing__enriched
+    description: "Combined & enriched marketing data from all marketing platforms"
+
+  - name: int_order__enriched
+    description: "Enriched order data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_order__transactions
+    description: "Order transaction history data"
+
+  - name: int_order_items__enriched
+    description: "Enriched order items data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_product__enriched
+    description: "Enriched product data"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_session__marketing_channel_classification
+    description: "Determines the marketing channel for each session"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
