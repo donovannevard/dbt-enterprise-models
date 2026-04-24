@@ -1,4 +1,4 @@
-# dbt-enterprise-models
+# dbt Enterprise Models
 
 A production-ready, contractor-optimized dbt project for modern marketing, e-commerce, and operational analytics.
 
