@@ -1,0 +1,16 @@
+id,name,category,price,currency_code,created_at,_fivetran_synced
+1,Classic Tee,Apparel,19.99,GBP,2025-04-22,2025-04-22T15:13:00Z
+2,Merino Jumper,Apparel,64.99,GBP,2025-04-18,2025-04-18T04:46:00Z
+3,Rain Jacket,Apparel,89.99,GBP,2025-04-30,2025-04-30T18:36:00Z
+4,Denim Jeans,Apparel,54.99,GBP,2025-04-16,2025-04-16T07:50:00Z
+5,Trail Runner,Footwear,79.99,GBP,2025-04-16,2025-04-16T13:12:00Z
+6,Leather Boot,Footwear,119.99,GBP,2025-04-04,2025-04-04T03:42:00Z
+7,Canvas Sneaker,Footwear,44.99,GBP,2025-04-14,2025-04-14T11:27:00Z
+8,Wool Beanie,Accessories,14.99,GBP,2025-04-14,2025-04-14T14:55:00Z
+9,Leather Belt,Accessories,29.99,GBP,2025-04-24,2025-04-24T01:43:00Z
+10,Crossbody Bag,Accessories,49.99,GBP,2025-04-21,2025-04-21T20:06:00Z
+11,Wireless Earbuds,Electronics,69.99,GBP,2025-04-02,2025-04-02T12:46:00Z
+12,Smart Water Bottle,Electronics,34.99,GBP,2025-04-11,2025-04-11T03:15:00Z
+13,Ceramic Mug Set,Home,24.99,GBP,2025-04-07,2025-04-07T06:34:00Z
+14,Linen Throw,Home,39.99,GBP,2025-04-15,2025-04-15T04:27:00Z
+15,Scented Candle,Home,17.99,GBP,2025-04-06,2025-04-06T08:29:00Z

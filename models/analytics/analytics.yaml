@@ -1,0 +1,243 @@
+models:
+  - name: agg_channel
+    description: "Marketing spend, clicks, and (gclid-attributed) revenue rolled up by channel"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: spend
+        tests:
+          - positive_value
+
+  - name: agg_customer_demographics
+    description: "Final customer data with full demographic information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: agg_customer_lifetime_value
+    description: "Final customer data with full lifetime value information, including a simple 1/3/5-year value projection"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: avg_order_value
+        tests:
+          - positive_value
+      - name: projected_value_5y
+        tests:
+          - positive_value
+
+  - name: agg_inventory
+    description: "Final product inventory information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: agg_marketing
+    description: "Final marketing information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: spend
+        tests:
+          - positive_value
+
+  - name: agg_products
+    description: "Final product pricing information, snapshotted daily for SCD Type 2 history"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: price
+        tests:
+          - positive_value
+
+  - name: agg_transactions
+    description: "Final transactional information"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: id
+
+  - name: dim_customers
+    description: "Customer-level information, 1 row per customer ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+          - dbt_utils.at_least_one
+
+  - name: dim_date
+    description: "A clean calendar for calculations"
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
+      - name: month_number
+        tests:
+          - range_check:
+              arguments:
+                min_value: 1
+                max_value: 12
+      - name: quarter
+        tests:
+          - range_check:
+              arguments:
+                min_value: 1
+                max_value: 4
+      - name: day_of_month
+        tests:
+          - range_check:
+              arguments:
+                min_value: 1
+                max_value: 31
+      - name: fiscal_quarter
+        tests:
+          - range_check:
+              arguments:
+                min_value: 1
+                max_value: 4
+
+  - name: dim_order_items
+    description: "Order item-level information, 1 row per order item ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_orders')
+                field: id
+      - name: product_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: id
+
+  - name: dim_orders
+    description: "Order-level information, 1 row per order ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: id
+      - name: status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['completed', 'refunded', 'cancelled']
+
+  - name: dim_products
+    description: "Product-level information, 1 row per product ID"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: price
+        tests:
+          - positive_value
+
+  - name: fct_marketing
+    description: "Marketing metrics, such as spend, clicks, impressions, etc, with channel classification"
+    columns:
+      - name: channel_grouping
+        tests:
+          - not_null
+      - name: impressions
+        tests:
+          - positive_value
+      - name: clicks
+        tests:
+          - positive_value
+      - name: spend
+        tests:
+          - positive_value
+      - name: ctr
+        tests:
+          - range_check:
+              arguments:
+                min_value: 0
+                max_value: 1
+
+  - name: fct_sessions
+    description: "Session metrics, such as page views, visits, visit duration, etc"
+
+  - name: fct_transactions
+    description: "Transaction metrics, such as revenue, units, refunds, etc"
+    tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "net_revenue <= gross_revenue"
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: ">= 0"
+            column_name: refund_amount
+    columns:
+      - name: order_item_id
+        tests:
+          - dbt_utils.at_least_one
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: id
+      - name: product_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: id
+      - name: order_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_orders')
+                field: id
+      - name: gross_revenue
+        tests:
+          - positive_value
+
+  - name: fct_visits
+    description: "Raw first-party web visit events, incrementally loaded, with Google Ads click attribution where a gclid is present"
+    columns:
+      - name: visit_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: id

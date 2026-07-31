@@ -1,0 +1,67 @@
+# Copy this file to profiles.yml (project root, gitignored) and fill in
+# the referenced environment variables via .env or your shell.
+# DO NOT commit the real profiles.yml — it is gitignored on purpose.
+
+dbt_enterprise_models:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      role: "{{ env_var('SNOWFLAKE_TRANSFORM_ROLE') }}"
+      user: "{{ env_var('DB_TRANSFORM_USER') }}"
+      password: "{{ env_var('DB_TRANSFORM_PASSWORD') }}"
+      database: "{{ env_var('DB_TRANSFORM_DATABASE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_TRANSFORM_WAREHOUSE') }}"
+      schema: test
+
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      role: "{{ env_var('SNOWFLAKE_TRANSFORM_ROLE') }}"
+      user: "{{ env_var('DB_TRANSFORM_USER') }}"
+      password: "{{ env_var('DB_TRANSFORM_PASSWORD') }}"
+      database: "{{ env_var('DB_TRANSFORM_DATABASE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_TRANSFORM_WAREHOUSE') }}"
+      schema: transform
+
+    # Used by .github/workflows/dbt_ci.yml. Point DB_TRANSFORM_DATABASE (as a
+    # GitHub secret) at a dedicated CI/test database, not your dev or prod
+    # one — snapshot target_schema is fixed to `snapshots` regardless of
+    # target, so a shared database would let CI runs and real dev/prod
+    # snapshot history collide.
+    ci:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      role: "{{ env_var('SNOWFLAKE_TRANSFORM_ROLE') }}"
+      user: "{{ env_var('DB_TRANSFORM_USER') }}"
+      password: "{{ env_var('DB_TRANSFORM_PASSWORD') }}"
+      database: "{{ env_var('DB_TRANSFORM_DATABASE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_TRANSFORM_WAREHOUSE') }}"
+      schema: ci
+
+    # dev:
+    #   type: redshift
+    #   host: "{{ env_var('REDSHIFT_HOST') }}"
+    #   user: "{{ env_var('DB_TRANSFORM_USER') }}"
+    #   password: "{{ env_var('DB_TRANSFORM_PASSWORD') }}"
+    #   dbname: "{{ env_var('DB_TRANSFORM_DATABASE') }}"
+    #   port: 5439
+    #   schema: test
+    #   threads: 4
+    #   sslmode: prefer
+    #   keepalives_idle: 240
+    #   connect_timeout: 10
+
+    # prod:
+    #   type: redshift
+    #   host: "{{ env_var('REDSHIFT_HOST') }}"
+    #   user: "{{ env_var('DB_TRANSFORM_USER') }}"
+    #   password: "{{ env_var('DB_TRANSFORM_PASSWORD') }}"
+    #   dbname: "{{ env_var('DB_TRANSFORM_DATABASE') }}"
+    #   port: 5439
+    #   schema: transform
+    #   threads: 4
+    #   sslmode: prefer
+    #   keepalives_idle: 240
+    #   connect_timeout: 10

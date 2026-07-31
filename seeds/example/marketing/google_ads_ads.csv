@@ -1,0 +1,17 @@
+id,ad_group_id,headline,status,ad_type,_fivetran_synced
+1,1,Google Brand Search Offer 1,active,responsive_search_ad,2025-09-29T01:41:00Z
+2,1,Google Brand Search Offer 2,active,responsive_search_ad,2025-09-29T13:01:00Z
+3,2,Google Brand Search Offer 1,active,responsive_search_ad,2025-09-29T14:58:00Z
+4,2,Google Brand Search Offer 2,active,responsive_search_ad,2025-09-29T18:58:00Z
+5,3,Google Non-Brand Search Offer 1,active,responsive_search_ad,2025-12-09T09:12:00Z
+6,3,Google Non-Brand Search Offer 2,active,responsive_search_ad,2025-12-09T10:42:00Z
+7,4,Google Non-Brand Search Offer 1,active,responsive_search_ad,2025-12-09T06:20:00Z
+8,4,Google Non-Brand Search Offer 2,active,responsive_search_ad,2025-12-09T09:32:00Z
+9,5,Google Shopping Feed Offer 1,active,responsive_search_ad,2025-12-22T14:15:00Z
+10,5,Google Shopping Feed Offer 2,active,responsive_search_ad,2025-12-22T05:08:00Z
+11,6,Google Shopping Feed Offer 1,active,responsive_search_ad,2025-12-22T14:54:00Z
+12,6,Google Shopping Feed Offer 2,active,responsive_search_ad,2025-12-22T18:30:00Z
+13,7,Google Banner Retargeting Offer 1,active,responsive_search_ad,2026-06-30T09:53:00Z
+14,7,Google Banner Retargeting Offer 2,active,responsive_search_ad,2026-06-30T04:11:00Z
+15,8,Google Banner Retargeting Offer 1,active,responsive_search_ad,2026-06-30T09:49:00Z
+16,8,Google Banner Retargeting Offer 2,active,responsive_search_ad,2026-06-30T02:35:00Z

@@ -1,0 +1,81 @@
+name: dbt CI
+
+"on":
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  DBT_PROFILES_DIR: .
+
+jobs:
+  # Fast, no-warehouse-connection gate: catches YAML/Jinja/ref/source errors
+  # (the same class of bug the config rebuild in this project's history was
+  # full of) in seconds, without needing real credentials. Runs even on PRs
+  # from forks that don't have access to repo secrets.
+  validate:
+    name: dbt parse
+    runs-on: ubuntu-latest
+    env:
+      SNOWFLAKE_ACCOUNT: ci-placeholder
+      SNOWFLAKE_TRANSFORM_ROLE: ci-placeholder
+      SNOWFLAKE_TRANSFORM_WAREHOUSE: ci-placeholder
+      DB_TRANSFORM_USER: ci-placeholder
+      DB_TRANSFORM_PASSWORD: ci-placeholder
+      DB_TRANSFORM_DATABASE: ci-placeholder
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dbt
+        run: pip install "dbt-snowflake==1.11.*"
+
+      - name: Write CI profile
+        run: cp profiles.yml.example profiles.yml
+
+      - run: dbt deps
+      - run: dbt parse
+
+  # Full build against a real (dedicated CI/test) Snowflake database: seeds
+  # the demo dataset, builds every model and snapshot in DAG order, then
+  # runs the full test suite. Requires these repo secrets to be set under
+  # Settings > Secrets and variables > Actions:
+  #   SNOWFLAKE_ACCOUNT, SNOWFLAKE_TRANSFORM_ROLE, SNOWFLAKE_TRANSFORM_WAREHOUSE,
+  #   DB_TRANSFORM_USER, DB_TRANSFORM_PASSWORD, DB_TRANSFORM_DATABASE
+  # DB_TRANSFORM_DATABASE should point at a database dedicated to CI, not
+  # your dev or prod one — see the comment on the `ci` target in
+  # profiles.yml.example for why.
+  build:
+    name: dbt build
+    needs: validate
+    runs-on: ubuntu-latest
+    env:
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_TRANSFORM_ROLE: ${{ secrets.SNOWFLAKE_TRANSFORM_ROLE }}
+      SNOWFLAKE_TRANSFORM_WAREHOUSE: ${{ secrets.SNOWFLAKE_TRANSFORM_WAREHOUSE }}
+      DB_TRANSFORM_USER: ${{ secrets.DB_TRANSFORM_USER }}
+      DB_TRANSFORM_PASSWORD: ${{ secrets.DB_TRANSFORM_PASSWORD }}
+      DB_TRANSFORM_DATABASE: ${{ secrets.DB_TRANSFORM_DATABASE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dbt
+        run: pip install "dbt-snowflake==1.11.*"
+
+      - name: Write CI profile
+        run: cp profiles.yml.example profiles.yml
+
+      - run: dbt deps
+
+      # seed + snapshot + run + test, in DAG order
+      - run: dbt build --target ci
